@@ -1,0 +1,184 @@
+﻿@page "/visit"
+@using BlazorApp_Przychodnia.Models
+@using Microsoft.EntityFrameworkCore;
+@using System.Threading;
+@using System.Threading.Tasks;
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager NavigationManager
+<div class="container" style="background-color:darkslateblue; color:@warning_color;width:@width; height:@height ">
+    <h4>@warning</h4>
+    <button class="button" @onclick="Delete_Yes" style="visibility:@visibility">Tak</button>
+    <button class="button" @onclick="Delete_No" style="visibility:@visibility">Nie</button>
+</div>
+		
+<div class="slide"></div>
+<div class="container" style="margin-bottom:0px;"><h1 style="margin-top: 2%; font-size:x-large">Karta Wizyty</h1></div>
+
+    <div style="display:flex; padding: 1% 1%; margin: 1%">
+    
+    <div class="container" style="width:30%; border: 5px solid rgb(233, 227, 227); border-radius:10%; padding:0 0;background-color:MediumSlateBlue; height:385px; margin:2%; ">
+            <h4 style="background-color:rgba(133, 96, 224, 0.636)">Dane Wizyty @id_visit</h4>
+            <img src="Images/business-card.png" class="btn-img" alt="test" style="margin-bottom:0.5%;">
+            <div  class="container">
+            <table class="table">
+                <tr>
+                    <th style="background-color: darkslateblue; width:25%; ">ID</th>
+                    <td>@id</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;">Pacjent</th>
+                    <td>@_patient</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;">Lekarz</th>
+                    <td>@_doctor</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;">Data</th>
+                    <td>@Data</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;">Godzina</th>
+                    <td>@Godzina</td>
+                </tr>
+            </table>
+             <button class="button" @onclick="Delete_Visit">Usuń wizyte</button>
+            </div>
+
+        </div>
+    <div class="container" style="width:70%; border: 5px solid rgb(233, 227, 227); border-radius:5%; padding:0 0;background-color:MediumSlateBlue; height:385px;margin:2%;margin-left:1% ">
+        <h4 style="background-color:rgba(133, 96, 224, 0.636)">Wywiad Lekarski</h4>
+            <div>
+            <textarea style="height:300px; width:90%; color:darkblue" @bind=@interview></textarea>
+            </div>
+
+
+        </div>
+    </div>
+    <div style="display:flex;  margin 1%">
+    <div class="container" style="width:50%; border: 5px solid rgb(233, 227, 227); border-radius:5%; padding:0 0;background-color: MediumSlateBlue; height:370px; margin:1%;">
+            <h4 style="background-color:rgba(133, 96, 224, 0.636)">Badania Przedmiotowe</h4>
+
+        <textarea style="height:300px; width:90%; color:darkblue" @bind=@item_tests></textarea>
+            
+
+        </div>
+    <div class="container" style="width:50%; border: 5px solid rgb(233, 227, 227); border-radius:5%; padding:0 0;background-color: MediumSlateBlue; height:370px; margin:1%;">
+        <h4 style="background-color:rgba(133, 96, 224, 0.636)">Zalecenia</h4>
+        
+        <textarea style="height:300px; width:90%; color:darkblue" @bind=@recommendations></textarea>
+
+    </div>
+    </div>
+    <div class="container">
+        <button class="button" @onclick="Confirm_Visit">Zatwierdź</button>
+        
+    </div>
+
+@code {
+    PrzychodniaContext dbp = new PrzychodniaContext();
+    public int id_visit { get; set; }
+
+    public int id;
+    public string _patient;
+    public string _doctor;
+    public DateTime Data { get; set; }
+    public TimeSpan Godzina { get; set; }
+
+    private string warning = " Nie wybrano poprawnych danych !";
+    private string warning_color = "red";
+    private string width = "0px";
+    private string height = "0px";
+
+    string interview;
+    string item_tests;
+    string recommendations;
+
+    string visibility;
+
+    protected override void OnInitialized()
+    {
+
+        id_visit = Temp_Visit.IdWizyty;
+        Load_Visit_by_id();
+    }
+    private void Load_Visit_by_id()
+    {
+
+        foreach (var visit in dbp.Wizyties.Include(m => m.IdPacjentaNavigation).Include(n => n.IdLekarzaNavigation))
+        {
+            if(id_visit == visit.IdWizyty)
+            {
+                id = visit.IdWizyty;
+                _patient = visit.IdPacjentaNavigation.Imie + " " + visit.IdPacjentaNavigation.Nazwisko;
+                _doctor = visit.IdLekarzaNavigation.Imie + " " + visit.IdLekarzaNavigation.Nazwisko;
+                Data = visit.Data;
+                Godzina = visit.Godzina;
+                interview = visit.WywiadLekarski;
+                item_tests = visit.BadaniePrzedmiotowe;
+                recommendations = visit.Zalecenia;
+                break;
+            }
+
+        }
+    }
+    private void Delete_Visit()
+    {
+        warning = "Czy Napewno chcesz Usunąć wizyte z systemu ?";
+        warning_color = "crimson";
+        width = "1320px";
+        height = "100px";
+    }
+    private async Task Delete_Yes()
+    {
+        foreach (var wizyta in dbp.Wizyties)
+        {
+            if (wizyta.IdWizyty == id)
+            {
+                dbp.Remove(wizyta);
+
+            }
+        }
+        dbp.SaveChanges();
+        warning = "Pomyślnie usunięto wizyte";
+        warning_color = "springgreen";
+        width = "1320px";
+        height = "100px";
+        await Task.Delay(3000);
+
+        NavigationManager.NavigateTo("/dashboard");
+    }
+    private void Delete_No()
+    {
+        width = "0px";
+        height = "0px";
+    }
+    private async Task Confirm_Visit()
+    {
+        foreach (var wizyta in dbp.Wizyties)
+        {
+            if (wizyta.IdWizyty == id)
+            {
+                wizyta.WywiadLekarski = interview;
+                wizyta.BadaniePrzedmiotowe = item_tests;
+                wizyta.Zalecenia = recommendations;
+                dbp.Update(wizyta);
+
+
+                break;
+            }
+
+        }
+        dbp.SaveChanges();
+        warning = "Pomyślnie wykonano wizyte";
+        warning_color = "springgreen";
+        width = "1320px";
+        height = "100px";
+        visibility = "hidden";
+        await Task.Delay(4000);
+        width = "0px";
+        height = "0px";
+        visibility = "visible";
+    }
+   
+}

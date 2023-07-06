@@ -1,0 +1,175 @@
+﻿@page "/pacjenci"
+@using BlazorApp_Przychodnia.Models
+@using Microsoft.EntityFrameworkCore;
+
+<div class="slide" style="margin-top:1%;"></div>
+<div style="display:flex; padding: 1% 1%; margin: 1%">
+
+    <div class="container" style="width:30%; border: 5px solid rgb(233, 227, 227); border-radius:10%; padding:0 0;background-color: rgba(255, 255, 255, 0.636); height:500px; margin:2%; ">
+        <h4 style="background-color:rgba(133, 96, 224, 0.636)">Wybór Pacjenta</h4>
+        <img src="Images/patient.png" class="btn-img" alt="test" style="margin-bottom:0.5%;">
+        <div style="height:300px;" class="container">
+        <table class="table" >
+            <thead>
+                <tr>
+                        <th style="background-color: darkslateblue;">Imie i Nazwisko</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach (var item in namemarge_pacjenci)
+                {
+                        <tr >
+                            <td @onclick="() => Patient_Select(item)">@item</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+        <input type="text" name="login" placeholder="Wyszukaj"/>
+        <button class="button">Szukaj   </button>
+
+    </div>
+    <div class="container" style="width:70%; border: 5px solid rgb(233, 227, 227); border-radius:5%; padding:0 0;background-color: rgba(255, 255, 255, 0.636); height:500px;margin:2%;margin-left:1% ">
+        <h4 style="background-color:rgba(133, 96, 224, 0.636)">Informacje</h4>
+        <div >
+            <table class="table">
+                <tr>
+                    <th style="background-color: darkslateblue; width:25%; " >Imię</th>
+                    <td>@Imie</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;">Nazwisko</th>
+                    <td>@Nazwisko</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;" >PESEL</th>
+                    <td >@PESEL</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;" >Numer telefonu</th>
+                    <td >@Numer_telefonu</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;" >Email</th>
+                    <td >@Email</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;" >Miasto</th>
+                    <td >@Miasto</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;">Ulica</th>
+                    <td>@Ulica</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;">Kod Pocztowy</th>
+                    <td>@Kod_pocztowy</td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkslateblue;">Nr mieszkania</th>
+                    <td>@Numer_mieszkania</td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+<div style="display:flex; padding 1% 1%; margin 1%">
+    <div class="container" style="width:100%; border: 5px solid rgb(233, 227, 227); border-radius:5%; padding:0 0;background-color: rgba(255, 255, 255, 0.636); height:450px;margin:2%;margin-left:8%">
+        <h4 style="background-color:rgba(133, 96, 224, 0.636)">Wizyty</h4>
+        <div style="display:flex; " class="container">
+            <table class="table" style="margin:1%; max-height:250px; height: 250px;">
+                    <tr>
+                        <th style="background-color: darkslateblue; width:25%; " >Liczba Wizyt</th>
+                        <td>@iloscwizyt</td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: darkslateblue;">Ostatnia Wizyta</th>
+                        <td>@ostatniawizyta</td>
+                    </tr>
+                </table>
+            <table class="table" style="margin:1%;">
+                <tr>
+                    <th style="background-color: darkslateblue; width:25%; ">Lista Wizyt</th>
+                    
+                </tr>
+                @foreach (var item in visit_list)
+                {
+                    <tr>
+                        <td>@item</td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+
+    </div>
+</div>
+@code {
+    PrzychodniaContext dbp = new PrzychodniaContext();
+    List<string> namemarge_pacjenci = new List<string>();
+    List<int> visit_list = new List<int>();
+    int Id_patient;
+    string Imie;
+    string Nazwisko;
+    string PESEL;
+    string Numer_telefonu;
+    string Email;
+    string Miasto;
+    string Ulica;
+    string Kod_pocztowy;
+    string Numer_mieszkania;
+    string iloscwizyt;
+    string ostatniawizyta;
+    protected override void OnInitialized()
+    {
+        Patient_List_Generate();
+    }
+
+    private void Patient_List_Generate()
+    {
+
+        foreach (var item in dbp.Pacjents)
+        {
+            string patient = item.Imie + " " + item.Nazwisko;
+            namemarge_pacjenci.Add(patient);
+        }
+    }
+    public void Patient_Select(string patient)
+    {
+        int visit_count = 0;
+        string[] nameParts = patient.Split(' ');
+        visit_list.Clear();
+        foreach (var item in dbp.Pacjents.Include(p => p.IdAdresuNavigation).Include(w => w.Wizyties))
+        {
+            if (item.Imie == nameParts[0] && item.Nazwisko == nameParts[1])
+
+            {
+                Id_patient = item.IdPacjenta;
+                Imie = item.Imie;
+                Nazwisko = item.Nazwisko;
+                PESEL = item.Pesel;
+                Numer_telefonu = item.NumerTelefonu;
+                Email = item.Email;
+                Miasto = item.IdAdresuNavigation.Miasto;
+                Ulica = item.IdAdresuNavigation.Ulica;
+                Kod_pocztowy = item.IdAdresuNavigation.KodPocztowy;
+                Numer_mieszkania = item.IdAdresuNavigation.NrMieszkania;
+                break; 
+            }
+        }
+        foreach (var item in dbp.Wizyties)
+        {
+            if (Id_patient == item.IdPacjenta)
+            {
+                visit_list.Add(item.IdWizyty);
+                visit_count = visit_count + 1;
+                iloscwizyt = "Łącznie: " + visit_count;
+                ostatniawizyta = "nr " + item.IdWizyty + " [ Data: " + item.Data.ToString("yyyy-MM-dd") + " ]";
+            }
+        }
+    }
+}
+

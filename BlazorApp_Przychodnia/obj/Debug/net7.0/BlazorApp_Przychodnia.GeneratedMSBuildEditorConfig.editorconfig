@@ -1,0 +1,69 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = BlazorApp_Przychodnia
+build_property.RootNamespace = BlazorApp_Przychodnia
+build_property.ProjectDir = C:\Users\tomek\source\repos\BlazorApp_Przychodnia\BlazorApp_Przychodnia\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\tomek\source\repos\BlazorApp_Przychodnia\BlazorApp_Przychodnia
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Pages/Dashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Pages/New_Visit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTmV3X1Zpc2l0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Pages/Patients.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Pages/Visit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlzaXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Shared/LogonLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ29uTGF5b3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-rb45s3mnfw
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-xox6f8ijg7
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-1ph9lyn1jx
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tomek/source/repos/BlazorApp_Przychodnia/BlazorApp_Przychodnia/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,121 @@
+﻿@page "/dashboard"
+@using BlazorApp_Przychodnia.Models
+@using Microsoft.EntityFrameworkCore;
+@inject NavigationManager NavigationManager
+
+<div class="container">
+		<div class="slide"></div>
+		<h1 style="margin-top: 2%; font-size:x-large">DASHBOARD</h1>
+		<div class="container" style="width:100%; border: 5px solid rgb(233, 227, 227); border-radius:10%;background-color: rgba(255, 255, 255, 0.636); height:800px; margin-top:2%">
+        <h4 style="background-color:rgba(133, 96, 224, 0.636)">Wizyty</h4>
+             <div style="height:320px;" class="container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="background-color: darkslateblue; position:sticky; top:0">ID</th>
+                            <th style="background-color: darkslateblue;position:sticky; top:0">Lekarz</th>
+                            <th style="background-color: darkslateblue;position:sticky; top:0">Pacjent</th>
+                        <th style="background-color: darkslateblue;position:sticky; top:0;">Data </th>
+                            <th style="background-color: darkslateblue;position:sticky; top:0;"> Godzina </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in visities)
+                        {
+                        <tr @onclick="() => Open_Visit(item.id)">
+                                <td>@item.id</td>
+                                <td>@item._doctor</td>
+                                <td>@item._patient</td>
+                                <td><b>@item.Data</b></td>
+                                <td><b>@item.Godzina</b></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+		</div>
+       
+        <div class="container" style="display:flex;">
+            <div class="container" style=" padding: 0 0;  border: 3px solid; border-color:rgba(133, 96, 224, 0.636); background-color:rgba(133, 96, 224, 0.636); ">
+               
+                <button class="button" style="font-size:small; margin:1%" @onclick="New_Visit">Dodaj Wizyte</button>
+           
+            </div>
+            <div class="container" style=" padding: 0 0;  border: 3px solid; border-color:rgba(133, 96, 224, 0.636); background-color:rgba(133, 96, 224, 0.636);">
+                <button class="button" style="font-size:x-small; margin:1%" @onclick="Visit_generate">Wszystkie Wizyty</button>
+                <button class="button" style="font-size:x-small; margin:1%" @onclick="Visit_today_generate">Dzisiejsze Wizyty</button>
+                <input type="text" name="login" placeholder="Wyszukaj" />
+                <button class="button" style="font-size:x-small; margin:1%" >Szukaj </button>
+
+            </div>
+        </div>
+     
+        </div>
+</div>
+@code {
+    PrzychodniaContext dbp = new PrzychodniaContext();
+
+    class Visit
+    {
+        public int id;
+        public string _patient;
+        public string _doctor;
+        public DateTime Data { get; set; }
+        public TimeSpan Godzina { get; set; }
+    }
+    List<Visit> visities = new List<Visit>();
+    protected void New_Visit()
+    {
+        NavigationManager.NavigateTo("/newvisit");
+    }
+
+    protected override void OnInitialized()
+    {
+        Visit_generate();
+    }
+    private void Visit_generate()
+    {
+        visities.Clear();
+        foreach (var item in dbp.Wizyties.Include(m => m.IdPacjentaNavigation).Include(n => n.IdLekarzaNavigation))
+        {
+
+            string doctor = item.IdLekarzaNavigation.Imie + " " + item.IdLekarzaNavigation.Nazwisko;
+            string patient = item.IdPacjentaNavigation.Imie + " " + item.IdPacjentaNavigation.Nazwisko;
+            visities.Add(new Visit()
+                {
+                    id = item.IdWizyty,
+                    _patient = patient,
+                    _doctor = doctor,
+                    Data = item.Data,
+                    Godzina = item.Godzina
+            });
+        }
+    }
+    private void Visit_today_generate()
+    {
+        visities.Clear();
+        foreach (var item in dbp.Wizyties.Include(m => m.IdPacjentaNavigation).Include(n => n.IdLekarzaNavigation))
+        {
+            if (item.Data.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
+            {
+                string doctor = item.IdLekarzaNavigation.Imie + " " + item.IdLekarzaNavigation.Nazwisko;
+                string patient = item.IdPacjentaNavigation.Imie + " " + item.IdPacjentaNavigation.Nazwisko;
+                visities.Add(new Visit()
+                {
+                    id = item.IdWizyty,
+                    _patient = patient,
+                    _doctor = doctor,
+                });
+            }
+        }
+    }
+    private void Open_Visit(int id)
+    {
+        Temp_Visit.IdWizyty = id;
+        NavigationManager.NavigateTo("/visit");
+        
+
+    }
+  
+}

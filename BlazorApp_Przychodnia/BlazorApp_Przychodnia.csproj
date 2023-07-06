@@ -1,0 +1,80 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Images\arrow-left.png" />
+    <Content Remove="wwwroot\Images\arrow-right.png" />
+    <Content Remove="wwwroot\Images\browser.png" />
+    <Content Remove="wwwroot\Images\budget.png" />
+    <Content Remove="wwwroot\Images\business-card.png" />
+    <Content Remove="wwwroot\Images\call.png" />
+    <Content Remove="wwwroot\Images\doctor.png" />
+    <Content Remove="wwwroot\Images\icon.ico" />
+    <Content Remove="wwwroot\Images\Icon4.png" />
+    <Content Remove="wwwroot\Images\Icon6.png" />
+    <Content Remove="wwwroot\Images\Inside1.png" />
+    <Content Remove="wwwroot\Images\Inside2.png" />
+    <Content Remove="wwwroot\Images\Inside3.png" />
+    <Content Remove="wwwroot\Images\lekarz1.png" />
+    <Content Remove="wwwroot\Images\Lekarz2.png" />
+    <Content Remove="wwwroot\Images\Lekarz3.png" />
+    <Content Remove="wwwroot\Images\Lekarz4.png" />
+    <Content Remove="wwwroot\Images\medical-invoice.png" />
+    <Content Remove="wwwroot\Images\medicine.png" />
+    <Content Remove="wwwroot\Images\Outside1-1.png" />
+    <Content Remove="wwwroot\Images\outside1.png" />
+    <Content Remove="wwwroot\Images\outside1_1.png" />
+    <Content Remove="wwwroot\Images\Outside2-1.png" />
+    <Content Remove="wwwroot\Images\Outside2.png" />
+    <Content Remove="wwwroot\Images\Outside3.png" />
+    <Content Remove="wwwroot\outside1_1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\arrow-left.png" />
+    <None Include="wwwroot\Images\arrow-right.png" />
+    <None Include="wwwroot\Images\browser.png" />
+    <None Include="wwwroot\Images\budget.png" />
+    <None Include="wwwroot\Images\business-card.png" />
+    <None Include="wwwroot\Images\call.png" />
+    <None Include="wwwroot\Images\doctor.png" />
+    <None Include="wwwroot\Images\icon.ico" />
+    <None Include="wwwroot\Images\Icon4.png" />
+    <None Include="wwwroot\Images\Icon6.png" />
+    <None Include="wwwroot\Images\Inside1.png" />
+    <None Include="wwwroot\Images\Inside2.png" />
+    <None Include="wwwroot\Images\Inside3.png" />
+    <None Include="wwwroot\Images\lekarz1.png" />
+    <None Include="wwwroot\Images\Lekarz2.png" />
+    <None Include="wwwroot\Images\Lekarz3.png" />
+    <None Include="wwwroot\Images\Lekarz4.png" />
+    <None Include="wwwroot\Images\medical-invoice.png" />
+    <None Include="wwwroot\Images\medicine.png" />
+    <None Include="wwwroot\Images\Outside1-1.png" />
+    <None Include="wwwroot\Images\outside1.png" />
+    <None Include="wwwroot\Images\outside1_1.png" />
+    <None Include="wwwroot\Images\Outside2-1.png" />
+    <None Include="wwwroot\Images\Outside2.png" />
+    <None Include="wwwroot\Images\Outside3.png" />
+    <None Include="wwwroot\outside1_1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
